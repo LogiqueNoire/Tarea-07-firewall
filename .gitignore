@@ -1,0 +1,7 @@
+/.vscode
+/terraform.tfstate
+/config/terraform.tfstate
+/iac/.terraform.lock.hcl
+iac/terraform.tfstate
+iac/terraform.tfstate.backup
+iac/.terraform
