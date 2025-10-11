@@ -1,5 +1,5 @@
 ---
-- name: Configurar NGINX proxy
+- name: Configurar NGINX proxy y WAF
   hosts: localhost
   gather_facts: false
   vars:
@@ -8,6 +8,7 @@
     waf_conf_host: "{{ project_root }}/host_volumes/waf_conf"
     web_root_host: "{{ project_root }}/host_volumes/web"
     nginx_container: 'proxy_nginx_dev'
+    firewall: 'waf_nginx'
   tasks:
     - name: Crear directorios
       ansible.builtin.file:
@@ -46,7 +47,7 @@
         src: "templates/waf.conf"
         dest: "{{waf_conf_host}}/waf.conf"
         mode: '0644'
-    - name: intentar recargar nginx
+    - name: intentar recargar proxy_nginx_dev
       ansible.builtin.command: >
         sudo docker exec {{nginx_container}} nginx -s reload
       register: reload_result
@@ -56,3 +57,14 @@
       ansible.builtin.command: >
         sudo docker restart {{nginx_container}}
       when: reload_result.rc != 0
+    - name: intentar recargar firewall
+      ansible.builtin.command: >
+        sudo docker exec {{firewall}} nginx -s reload
+      register: reload_result_waf
+      changed_when: reload_result_waf.rc == 0
+      failed_when: false 
+    - name: Reiniciamos contenedor
+      ansible.builtin.command: >
+        sudo docker restart {{firewall}}
+      when: reload_result_waf.rc != 0
+      failed_when: false

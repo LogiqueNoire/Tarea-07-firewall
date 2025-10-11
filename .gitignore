@@ -5,3 +5,4 @@
 iac/terraform.tfstate
 iac/terraform.tfstate.backup
 iac/.terraform
+/host_volumes

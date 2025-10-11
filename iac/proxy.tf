@@ -17,4 +17,10 @@ resource "docker_container" "proxy_nginx_dev" {
     read_only       = false
   }
 
+  depends_on = [
+    docker_container.nginx_app_1,
+    docker_container.nginx_app_2,
+    docker_container.nginx_app_3
+  ]
+
 }
