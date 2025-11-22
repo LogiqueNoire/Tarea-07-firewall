@@ -25,6 +25,6 @@ resource "docker_container" "waf_nginx" {
   ]
 }
 
-resource "docker_network" "net_proxy" {
+resource "docker_network" "net_waf" {
   name = "net_waf"
 }
