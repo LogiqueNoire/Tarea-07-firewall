@@ -1,5 +1,5 @@
-resource "docker_network" "persistencenet" {
-    name = "persistencenet"
+resource "docker_network" "persistence_net" {
+    name = "persistence_net"
 }
 
 resource "docker_container" "redis" {
@@ -12,7 +12,7 @@ resource "docker_container" "redis" {
   }
 
   networks_advanced{
-    name = docker_network.persistencenet.name
+    name = docker_network.persistence_net.name
   }
 }
 
@@ -28,7 +28,7 @@ resource "docker_container" "postgres" {
   env = ["POSTGRES_PASSWORD=1234"]
 
   networks_advanced{
-    name = docker_network.persistencenet.name
+    name = docker_network.persistence_net.name
   }
 
 }

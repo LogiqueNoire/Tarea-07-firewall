@@ -1,6 +1,6 @@
 resource "docker_container" "waf_nginx" {
   name  = "waf_nginx"
-  image = "owasp/modsecurity-crs:3.3.7-nginx-202510030310"
+  image = "owasp/modsecurity-crs:3.3-nginx-202510030310"
 
   ports {
     external = 850
@@ -8,7 +8,10 @@ resource "docker_container" "waf_nginx" {
   }
 
   networks_advanced {
-    name = docker_network.net_app.name
+    name = docker_network.net_proxy.name
+  }
+  networks_advanced {
+    name = docker_network.net_waf.name
   }
 
   volumes {
@@ -20,4 +23,8 @@ resource "docker_container" "waf_nginx" {
   depends_on = [
     docker_container.proxy_nginx_dev
   ]
+}
+
+resource "docker_network" "net_proxy" {
+  name = "net_waf"
 }

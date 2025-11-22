@@ -18,7 +18,7 @@ resource "docker_container" "nginx_app_1" {
     name = docker_network.net_app.name
   }
   networks_advanced{
-    name = docker_network.persistencenet.name
+    name = docker_network.persistence_net.name
   }
 }
 
@@ -39,7 +39,7 @@ resource "docker_container" "nginx_app_2" {
     name = docker_network.net_app.name
   }
   networks_advanced{
-    name = docker_network.persistencenet.name
+    name = docker_network.persistence_net.name
   }
 }
 
@@ -60,7 +60,7 @@ resource "docker_container" "nginx_app_3" {
     name = docker_network.net_app.name
   }
   networks_advanced{
-    name = docker_network.persistencenet.name
+    name = docker_network.persistence_net.name
   }
 }
 

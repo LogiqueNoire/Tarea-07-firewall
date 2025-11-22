@@ -46,7 +46,7 @@
       ansible.builtin.copy:
         src: "templates/waf.conf"
         dest: "{{waf_conf_host}}/waf.conf"
-        mode: '0644'
+        mode: '0777'
     - name: intentar recargar proxy_nginx_dev
       ansible.builtin.command: >
         sudo docker exec {{nginx_container}} nginx -s reload

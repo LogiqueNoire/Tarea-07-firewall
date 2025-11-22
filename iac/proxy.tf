@@ -10,6 +10,9 @@ resource "docker_container" "proxy_nginx_dev" {
   networks_advanced {
     name = docker_network.net_app.name
   }
+  networks_advanced{
+    name = docker_network.net_proxy.name
+  }
 
   volumes {
     host_path       = abspath("${path.module}/../host_volumes/nginx_conf")
@@ -23,4 +26,8 @@ resource "docker_container" "proxy_nginx_dev" {
     docker_container.nginx_app_3
   ]
 
+}
+
+resource "docker_network" "net_proxy" {
+  name = "net_proxy"
 }
