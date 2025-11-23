@@ -16,7 +16,7 @@ resource "docker_container" "waf_nginx" {
 
   volumes {
     host_path      = abspath("${path.module}/../host_volumes/waf_conf")
-    container_path = "/etc/nginx/conf.d"
+    container_path = "/etc/nginx/conf.d/waf.conf"
     read_only      = false
   }
 
